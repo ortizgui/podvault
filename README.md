@@ -8,7 +8,7 @@ PodVault is a script designed to facilitate the backup of podcast episodes that 
 - Filters episodes by title using a regular expression.
 - Logs downloaded and failed episodes to separate files.
 - Supports environment variables for configuration.
-- - Option to run the download process in a loop with a configurable interval.
+- Option to run the download process in a loop with a configurable interval.
 
 ## Requirements
 
