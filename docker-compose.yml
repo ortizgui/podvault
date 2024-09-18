@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  podvault:
+    build: .
+    environment:
+      - PODCAST_RSS_URL=https://podcast.rss/feed
+      - DOWNLOAD_LOCATION=/download
+      - TITLE_FILTER=.*
+      - RUN_MODE=loop
+      - LOOP_INTERVAL=60
+    volumes:
+      - /path/on/your/pc:/download
