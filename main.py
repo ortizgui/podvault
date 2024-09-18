@@ -52,12 +52,20 @@ def log_downloaded_episode(log_file, episode_title):
         file.write(f"{episode_title}\n")
 
 
-def log_failed_episode(log_file, episode_title):
+def log_failed_episode(log_file, episode_title, file_name):
     """
-    Logs the failed episode title to the log file.
+    Logs the failed episode title and the original file name to the log file if it is not already logged.
     """
-    with open(log_file, "a") as file:
-        file.write(f"{episode_title}\n")
+    log_entry = f"{episode_title} - Missing file: {file_name}\n"
+
+    if not os.path.exists(log_file):
+        with open(log_file, "w") as file:
+            file.write(log_entry)
+    else:
+        with open(log_file, "r+") as file:
+            failed_episodes = set(line.strip() for line in file)
+            if log_entry.strip() not in failed_episodes:
+                file.write(log_entry)
 
 
 def download_podcast_episodes(rss_feed_url, download_location, title_filter):
@@ -87,10 +95,10 @@ def download_podcast_episodes(rss_feed_url, download_location, title_filter):
                 if download_file(episode_url, save_path):
                     log_downloaded_episode(download_log_file, entry.title)
                 else:
-                    log_failed_episode(failed_log_file, entry.title)
+                    log_failed_episode(failed_log_file, entry.title, episode_url)
             else:
                 print(f"No downloadable content found for: {episode_title}")
-                log_failed_episode(failed_log_file, entry.title)
+                log_failed_episode(failed_log_file, entry.title, episode_url)
         else:
             print(f"Skipping: {entry.title} (Already downloaded or does not match filter '{title_filter}')")
 
