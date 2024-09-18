@@ -1,5 +1,6 @@
 import os
 import re
+import time
 import requests
 import feedparser
 from dotenv import load_dotenv
@@ -109,5 +110,13 @@ if __name__ == "__main__":
     podcast_rss_url = os.getenv("PODCAST_RSS_URL") or input("Enter the RSS feed URL: ")
     download_location = os.getenv("DOWNLOAD_LOCATION") or input("Enter the download location: ")
     title_filter = os.getenv("TITLE_FILTER", ".*") or input("Enter the title filter (default is '.*' to match all): ")
+    run_mode = os.getenv("RUN_MODE", "one_time")
+    loop_interval = int(os.getenv("LOOP_INTERVAL", "60"))
 
-    download_podcast_episodes(podcast_rss_url, download_location, title_filter)
+    if run_mode == "loop":
+        while True:
+            download_podcast_episodes(podcast_rss_url, download_location, title_filter)
+            print(f"Waiting for {loop_interval} minutes before the next download...")
+            time.sleep(loop_interval * 60)  # Sleep for the specified interval
+    else:
+        download_podcast_episodes(podcast_rss_url, download_location, title_filter)
