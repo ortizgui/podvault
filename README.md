@@ -1,6 +1,6 @@
 # PodVault
 
-This script is designed to facilitate the backup of podcast episodes that you enjoy. It downloads episodes from a specified RSS feed URL, allows you to filter episodes by title, and keeps track of downloaded and failed episodes to avoid duplicates.
+PodVault is a script designed to facilitate the backup of podcast episodes that you enjoy. It downloads episodes from a specified RSS feed URL, allows you to filter episodes by title, and keeps track of downloaded and failed episodes to avoid duplicates. This ensures that you have a local copy of your favorite podcasts, even if they are removed from the web or an episode is removed from the feed.
 
 ## Features
 
@@ -58,7 +58,7 @@ You can configure the script using environment variables or by editing the `.env
 The script logs downloaded and failed episodes to text files in the download directory:
 
 - `downloaded_episodes.txt`: Contains titles of successfully downloaded episodes.
-- `failed_episodes.txt`: Contains titles of episodes that failed to download.
+- `failed_episodes.txt`: Contains titles of episodes that failed to download along with the original file name.
 
 ## Example
 
@@ -68,7 +68,3 @@ PODCAST_RSS_URL=https://api.jovemnerd.com.br/feed-nerdcast/
 DOWNLOAD_LOCATION=/path/you/want/to/download
 TITLE_FILTER=NerdCast.*
 ```
-
-## License
-
-This project is licensed under the MIT License. See the `LICENSE` file for details.
